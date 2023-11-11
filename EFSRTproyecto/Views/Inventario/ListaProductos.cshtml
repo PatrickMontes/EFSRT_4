@@ -1,0 +1,47 @@
+﻿@model IEnumerable<EFSRTproyecto.Models.Producto>
+
+@{
+    ViewBag.Title = "ListadoDeProducto";
+}
+
+<h2>Administración de Inventario</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo Producto", "CrearProducto", null, new { @class = "btn btn-primary" })
+</p>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Nombre del Producto</th>
+                <th>Descripción</th>
+                <th>Precio Unitario</th>
+                <th>Stock</th>
+                <th>Categoría</th>
+                <th>Proveedor</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.NombreProducto)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PrecioUnitario)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Stock)</td>
+                    <td>@Html.DisplayFor(modelItem => item.categoria.NombreCategoria)</td>
+                    <td>@Html.DisplayFor(modelItem => item.proveedor.NombreProveedor)</td>
+                    <td>
+                        @Html.ActionLink("Editar", "EditarProducto", new { id = item.id }, new { @class = "btn btn-info btn-sm" }) |
+                        @using (Html.BeginForm("EliminarProductos", "Inventario", new { id = item.id }, FormMethod.Post))
+                        {
+                            <input type="submit" value="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este producto?')" />
+                        }
+</tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<p>Productos Existentes: @Model.Count()</p>

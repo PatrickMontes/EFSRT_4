@@ -1,0 +1,58 @@
+﻿@model IEnumerable<EFSRTproyecto.Models.Proveedor>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+
+<h2>Lista de Proveedores</h2>
+
+<p>
+    @Html.ActionLink("Crear", "CrearProveedor")
+</p>
+
+<table class="table">
+    <thead>
+        <tr>           
+            <th>
+                @Html.DisplayNameFor(model => model.NombreProveedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreProveedor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "EditarProveedor", new { id = item.IdProveedor }, new { @class = "btn btn-info btn-sm" }),
+                    @using (Html.BeginForm("EliminarProveedores", "Inventario", new { id = item.IdProveedor }, FormMethod.Post))
+                    {
+                        <input type="submit" value="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este proveedor?')" />
+                    }
+
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<script>
+   
+</script>
